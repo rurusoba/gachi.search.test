@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <meta name="description" content="高度な検索をビジュアルで補助する検索補助サイト">
+    <title>ガチガチ検索さん</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; object-src 'none'; style-src 'self'; img-src 'self' https://www.google.com;">
+</head>
+<body>
+    <h1>ガチガチ検索さん</h1>
+
+    <!-- タブボタン -->
+    <div class="tab-buttons">
+        <button class="tab-button active" data-tab="searchTab">調べるために</button>
+        <button class="tab-button" data-tab="favoritesTab">お気に入り</button>
+    </div>
+
+    <!-- 検索タブ -->
+    <div id="searchTab" class="tab active">
+        <!-- カテゴリメニューの選択 -->
+        <div class="dropdown-group">
+            <label for="categoryMenuSelect">カテゴリメニューを選択:</label>
+            <select id="categoryMenuSelect"></select>
+            <button type="button" class="add-button" id="createCategoryMenuButton">新しいカテゴリメニューを作成</button>
+            <button type="button" class="delete-button" id="deleteCategoryMenuButton">このカテゴリメニューを削除</button>
+        </div>
+
+        <form id="searchForm">
+            <!-- 検索フォームはそのまま -->
+            <label for="searchWord">検索キーワード:</label>
+            <input type="text" id="searchWord" name="searchWord" placeholder="検索用キーワードをスペースで区切って入力">
+
+            <label for="orSearchWords">OR検索キーワード:</label>
+            <input type="text" id="orSearchWords" name="orSearchWords" placeholder="OR検索用キーワードをスペースで区切って入力">
+
+            <label for="notSearchWord">検索除外キーワード:</label>
+            <input type="text" id="notSearchWord" name="notSearchWord" placeholder="検索したくないキーワードをスペースで区切って入力">
+            
+            <label>
+    <input type="checkbox" id="excludeAffiliateSites" name="excludeAffiliateSites">
+    アフィリエイトとかを除外できるかも
+            </label>
+            <!--いろんな機能をまとめて表示させる-->
+            <label for="toggleDisplay">もっと色々表示するかも</label>
+            <input type="checkbox" id="toggleDisplay">
+            <!--表示させるものたち以下-->
+            <div id="manageInputField">
+                <label for="manageInputOption">検索オプション:</label>
+                <select id="manageInputOption">
+                    <option value="intitle:">タイトル検索</option>
+                    <option value="intext:">本文検索</option>
+                    <option value="~">類義語検索</option>
+                </select>
+                
+                <label for="manageSearchWord">特殊キーワード: <span id="selectedKeyword">を選択してください</span></label>
+                <input type="text" id="manageSearchWord" name="manageSearchWord" placeholder="選択された検索キーワードを入力">
+            </div>
+
+            <label for="searchEngine">検索エンジンを選択:</label>
+            <select id="searchEngine" name="searchEngine"></select>
+
+            <div class="dropdown-group">
+                <label for="categoryDropdown">カテゴリを選択:</label>
+                <div id="categoryDropdown"></div>
+                <button type="button" class="edit-button" id="editCategoryButton">カテゴリを編集</button>
+                <button type="button" class="add-button" id="addButton">サイトを追加</button>
+                <button type="button" class="delete-button" id="deleteCategoryButton">カテゴリを削除</button>
+                <button type="button" class="drag-button" id="toggleDragButton">ドラッグ＆ドロップを有効化</button>
+            </div>
+
+            <div class="checkbox-group">
+                <label for="subCategoryCheckboxes">サブカテゴリを選択:</label>
+                <div id="subCategoryCheckboxes"></div>
+            </div>
+
+            <label for="searchAfter">選択日以降を検索:</label>
+            <input type="date" id="searchAfter" name="searchAfter">
+
+            <label for="searchBefore">選択日以前を検索:</label>
+            <input type="date" id="searchBefore" name="searchBefore">
+
+            <input type="submit" value="検索">
+        </form>
+
+        <button type="button" class="export-button" id="exportSettingsButton">設定をエクスポート</button>
+        <button type="button" class="import-button" id="importSettingsButton">設定をインポート</button>
+        <input type="file" id="importInput" accept=".json">
+    </div>
+
+    <!-- お気に入りタブ -->
+    <div id="favoritesTab" class="tab">
+        <!-- カテゴリメニューの選択 -->
+        <div class="dropdown-group">
+            <label for="favoritesMenuSelect">カテゴリメニューを選択:</label>
+            <select id="favoritesMenuSelect"></select>
+            <button type="button" class="add-button" id="createFavoritesMenuButton">新しいカテゴリメニューを作成</button>
+            <button type="button" class="delete-button" id="deleteFavoritesMenuButton">このカテゴリメニューを削除</button>
+        </div>
+
+        <button type="button" class="add-button" id="addFavoriteButton">お気に入りを追加</button>
+        <button type="button" class="export-button" id="exportFavoritesButton">お気に入りをエクスポート</button>
+        <button type="button" class="import-button" id="importFavoritesButton">お気に入りをインポート</button>
+        <input type="file" id="importFavoritesInput" accept=".json">
+        <div class="favorites-container" id="favoritesContainer"></div>
+    </div>
+
+    <!-- PC用のお気に入り表示 -->
+    <div class="favorites-container pc" id="favoritesContainerPC"></div>
+
+    <div class="sidebar">
+        <!-- 公式サイト案内の文言 -->
+        <h3>公式サイトと利用規約</h3>
+        <p>公式サイトに使い方があるので。みてみてください。</p>
+        <a href="https://ruru.kanagawa.jp/qo/gachi-search">使い方と本家</a>
+        <p>利用規約はこちら</p>
+        <a href="https://ruru.kanagawa.jp/qo/gachi-search-terms">利用規約</a>
+        <!-- 検索履歴保存のチェックボックス -->
+        <label for="saveHistoryCheckbox">検索履歴を保存</label>
+        <input type="checkbox" id="saveHistoryCheckbox" checked>
+        
+        <!-- 検索履歴の表示エリア -->
+        <div id="searchHistory" style="display: none;">
+            <h3>検索履歴</h3>
+            <div id="historyList"></div>
+        </div>
+    </div>
+</body>
+</html>

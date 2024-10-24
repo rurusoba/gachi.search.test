@@ -1,0 +1,227 @@
+/* 基本スタイル */
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100%;
+    background-color: #f5f5dc;
+}
+h1 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+label {
+    display: block;
+    margin-top: 10px;
+    font-size: 1rem;
+}
+input[type="text"], input[type="submit"], input[type="date"], select {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+.checkbox-group, .dropdown-group {
+    margin-top: 10px;
+}
+.edit-button, .add-button, .delete-button, .export-button, .import-button, .drag-button, .fav-button {
+    margin-left: 10px;
+    padding: 2px 5px;
+    font-size: 0.9rem;
+}
+.clear-button {
+    margin-top: 20px;
+    display: block;
+    font-size: 1rem;
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+.draggable {
+    cursor: grab;
+}
+.draggable:active {
+    cursor: grabbing;
+}
+.dragging {
+    opacity: 0.5;
+}
+#importInput, #importFavoritesInput {
+    display: none;
+}
+/* お気に入りのスタイル */
+.favorites-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);  /* 5列に変更 */
+    gap: 20px; /* アイテム間のスペース */
+}
+.favorite-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    width: 20%; /* 5つで折り返す */
+    box-sizing: border-box;
+}
+.favorite-item img {
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+}
+.favorite-item span {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+.tab {
+    display: none;
+}
+.tab.active {
+    display: block;
+}
+.tab-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.tab-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #ccc;
+    margin: 0 5px;
+    font-size: 1rem;
+}
+.tab-button.active {
+    background-color: #aaa;
+}
+/*検索履歴の表示*/
+@media (max-width: 1024px) {
+    #searchHistory {
+        display: none;  /* モバイル版で履歴を非表示にする */
+    }
+}
+.sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #f5f5dc;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#searchHistory {
+    margin-top: 20px;
+}
+
+#historyList {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.history-item {
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    word-wrap: break-word;
+    white-space: normal;
+}
+/* PC用のお気に入り表示 */
+@media (min-width: 1025px) {
+    .favorites-container.pc {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3列に分割 */
+        gap: 20px; /* アイテム間のスペース */
+        justify-items: center;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .favorite-item {
+        width: 100%; /* 各アイテムが列の幅に適合するように */
+        box-sizing: border-box;
+    }
+}
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    body {
+        margin: 0;
+        padding: 10px;
+    }
+    h1 {
+        font-size: 1.2rem;
+    }
+    label {
+        font-size: 0.9rem;
+    }
+    input[type="text"], input[type="submit"], input[type="date"], select {
+        font-size: 0.9rem;
+    }
+    .edit-button, .add-button, .delete-button, .export-button, .import-button, .drag-button, .fav-button {
+        font-size: 0.8rem;
+    }
+    .clear-button {
+        font-size: 0.9rem;
+    }
+    .favorites-container.pc {
+        display: none;
+    }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+    body {
+        margin: 20px auto;
+        width: 90%;
+    }
+    h1 {
+        font-size: 1.4rem;
+    }
+    label {
+        font-size: 1rem;
+    }
+    input[type="text"], input[type="submit"], input[type="date"], select {
+        font-size: 1rem;
+    }
+    .edit-button, .add-button, .delete-button, .export-button, .import-button, .drag-button, .fav-button {
+        font-size: 0.9rem;
+    }
+    .clear-button {
+        font-size: 1rem;
+    }
+}
+@media (min-width: 1025px) {
+    body {
+        margin: 20px auto;
+        width: 50%;
+    }
+    h1 {
+        font-size: 1.6rem;
+    }
+    label {
+        font-size: 1rem;
+    }
+    input[type="text"], input[type="submit"], input[type="date"], select {
+        font-size: 1rem;
+    }
+    .edit-button, .add-button, .delete-button, .export-button, .import-button, .drag-button, .fav-button {
+        font-size: 0.9rem;
+    }
+    .clear-button {
+        font-size: 1rem;
+    }
+}
